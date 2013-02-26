@@ -1,0 +1,60 @@
+private static String Frac2Decimal(int nume, int denom){
+  	char[] result = new char[1000];
+		int sign = (nume*denom>=0) ? 1: -1; % get the sign of the result
+		int remainder = 0;
+		int quotient = 0;
+		int position = 0;
+		int duplicate = 0;
+		if (sign < 0)
+			result[position++] = '-';
+		if (nume>=denom){                   % if has non-fractional part
+			quotient = nume / denom;
+			remainder = nume % denom;
+			if (!hash.containsKey(remainder)){
+				hash.put(remainder, position);
+				result[position++] = (char) quotient;
+				result[position++] = '.';
+			}
+			nume = remainder;
+		}else{
+			result[position++] = '0';
+			result[position++] = '.';
+		}
+		
+		while (true){
+			nume *=10;
+			quotient = nume / denom;
+			remainder = nume % denom;
+			nume = remainder;
+			if (remainder == 0){
+				result[position++] = (char) ('0' + quotient);
+				duplicate = -1;
+				break;
+			}
+			
+			if (!hash.containsKey(remainder)){             % push remainder to hash table
+				hash.put(remainder, position);
+				result[position++] = (char) ('0' + quotient);
+			}
+			else {
+				duplicate = hash.get(remainder);
+				break;
+			}
+		}
+		
+		if (duplicate > 0){
+			result[++position] = ')';
+			for (int i=position-1; i>duplicate; i--)
+				result[i] = result[i-1];
+			result[duplicate] = '(';
+			result[++position] = '\0';
+		} else{
+			result[position++] = '(';
+			result[position++] = '0';
+			result[position++] = ')';
+			result[position++] = '\0';
+		}
+		return String.copyValueOf(result);
+	}
+	
+	private static Hashtable<Integer, Integer> hash = new Hashtable<Integer, Integer>();
