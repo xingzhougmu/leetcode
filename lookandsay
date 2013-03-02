@@ -1,0 +1,62 @@
+/*
+Implement LookAndSay function. For example, first, let user input a number, say 1. 
+Then, the function will generate the next 10 numbers which satisfy this condition: 
+1, 11,21,1211,111221,312211... 
+explanation: first number 1, second number is one 1, so 11. Third number is two 1(previous number), 
+so 21. next number one 2 one 1, so 1211 and so on...
+*/
+
+private static LinkedList<String> lookandsay(int i){
+  //int num = i;
+	String num = new String();
+	num = String.valueOf(i);
+
+	LinkedList<String> list = new LinkedList<String>();
+	
+	
+	for (int iter=1; iter<10; iter++){
+		/*this version can also work, but the number grows rapidly, and will exceed the limit of Integer
+		if (num == 0) stack.push(num);
+		else {
+			while( num != 0){
+				int tmp = num % 10;
+				stack.push(tmp);
+				num = num / 10;
+			}
+		}
+		 */
+
+		for(int ind=num.length(); ind>0; ind--){
+			stack.push(Character.getNumericValue(num.charAt(ind-1)));
+		}
+		
+		int current = stack.pop();
+		int count = 1;
+		String result = new String();
+		int next;
+		while (!stack.empty()){
+			next = stack.peek();
+			if (next == current){
+				count++;
+				current = next;
+				stack.pop();
+			} else {
+				result = result + count;
+				result = result + current;
+				current = stack.pop();
+				count = 1;
+				}
+		}
+		result = result + count;
+		result = result + current;
+		//num = Integer.parseInt(result);
+		num = result;
+		System.out.println(num);
+		list.add(result);
+	
+	}
+	System.out.println();
+	return list;
+}
+
+private static Stack<Integer> stack = new Stack<Integer>();
