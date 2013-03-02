@@ -1,0 +1,43 @@
+/*
+Print all valid phone numbers of length n subject to following constraints: 
+
+1.If a number contains a 4, it should start with 4 
+2.No two consecutive digits can be same 
+3.Three digits (e.g. 7,2,9) will be entirely disallowed, take as input
+*/
+
+
+private static void validPhoneNumber(int d, int n, int s, String result, String pattern){
+  if (d == n){
+		if (checkvalid(result))
+			System.out.println(result);
+		return;
+	}
+	else {
+		for (int i=0; i<pattern.length(); i++){
+			if (!keys.containsKey(i)) {
+				//keys.put(i, true);  // controls if the same digit is allowed to show up for more than one time.
+				validPhoneNumber(d+1, n, i+1, result+i, patttern); // s controls if this is combination or permutation
+				//keys.remove(i);
+			}
+		}
+	}
+	return;
+		
+}
+
+private static boolean checkvalid(String result){
+	int count = 0;
+	for (int i=1; i<result.length(); i++){
+		if (result.charAt(i) == '4') count++;
+		if (result.charAt(i) == result.charAt(i-1))
+			return false;
+	}
+	
+	return(count==0);
+
+}
+
+
+private static String pattern = "0134568";
+private static Hashtable<Integer, Boolean> keys = new Hashtable<Integer, Boolean>();
