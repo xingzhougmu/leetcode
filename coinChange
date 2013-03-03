@@ -1,0 +1,52 @@
+import java.awt.Point;
+import java.util.ArrayList;
+
+/*
+Dynamic programming problem: Coin change problem: 
+Find the minimum number of coins required to make change for a given sum 
+(given unlimited cumber of N different denominations coin)
+*/
+
+public class CoinChanges{
+
+public static void main(String[] args){
+  int sum = 37;
+	if (coinchange(0, sum, 0, coins)){
+		for (Point pt:result){
+			System.out.println(pt.x + " " + pt.y + " ");
+		}
+	}
+	else
+		System.out.println("Unchangeabe!");
+
+}
+
+private static boolean coinchange(int d, int sum, int s, int[] coins){
+
+	if (sum == 0)
+		return true;
+	else if (sum < 0)
+		return false;
+
+	for (int i=s; i<coins.length; i++){
+		int num = sum / coins[i];
+		Point pt = new Point();
+		pt.x = num;
+		pt.y = coins[i];
+		changes.add(pt);
+		if (num >= 1 && coinchange(d+num, sum-num*coins[i], i, coins)){
+			result = (ArrayList<Point>) changes.clone();
+			return true;
+		}
+		changes.remove(changes.size()-1);
+	}
+	
+	return false;
+
+}
+
+private static ArrayList<Point> changes = new ArrayList<Point>();
+private static ArrayList<Point> result = new ArrayList<Point>(); 
+private static int[] coins = {25, 10, 5, 1};
+
+}
