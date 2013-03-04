@@ -1,0 +1,81 @@
+/*
+sort an array to make it all odd numbers are in front of even numbers, and keep the original relative order.
+Space complexity: in-place; time complexity: O(N)
+Input:
+A[]=[5,6,8,2,3,9,4]; output:
+[5,3,9,6,8,2,4]
+*/
+public class Sort{
+
+public static void main(String[] args){
+  
+	sort1(array);
+	for (int i=0; i<array.length; i++)
+		System.out.print(array[i] + " ");
+}
+
+private static void sort(int[] array){
+	int odd = 0;
+	int even = 0;
+	for (int i=0; i<array.length; i++){
+		if (array[i]%2 != 0)
+			even++;
+		else
+			break;
+	}
+	for (int i=0; i<array.length; i++){
+		if (array[i]%2 == 0)
+			odd++;
+		else
+			break;
+	}
+
+	if (odd > even){
+		int tmp = array[odd];
+		for (int j=odd; j>even; j--)
+			array[j] = array[j-1];
+		array[even] = tmp;
+		odd = even;
+		even = odd + 1;
+
+	}
+
+	for (int i=odd+1;i<array.length; i++){
+		if (array[i]%2 != 0){
+			int tmp = array[i];
+			for (int j=i; j>even; j--)
+				array[j] = array[j-1];
+			array[even] = tmp;
+			even++;
+		}
+	}
+
+}
+
+private static void sort1(int[] array){
+	int odd = 0;
+	int even = 0;
+	for (int i=0; i<array.length; i++){
+		if (array[i]%2 != 0)
+			even++;
+		else
+			break;
+	}
+
+	for (int i=0;i<array.length; i++){
+		if (array[i]%2 != 0){
+			odd = i;
+			if (odd > even){
+				int tmp = array[i];
+				for (int j=i; j>even; j--)
+					array[j] = array[j-1];
+				array[even] = tmp;
+				even++;
+			}
+		}
+	}
+
+}
+
+private static int[] array = {5, 6, 8, 2, 3, 9, 4};
+}
