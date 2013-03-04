@@ -1,0 +1,69 @@
+import java.util.ArrayList;
+
+/*
+Dynamic Programming: FIND THE MAXUMUN SUM SUB-SEQUENCE IN A ARRAY
+*/
+public class findMaxSum{
+  
+	public static void main (String[] args){
+		int  index = findMaxSum(array2);
+		//System.out.println(index);
+		Node result = list.get(index);
+		for (int i=result.start; i<=result.end; i++)
+			System.out.print(array2[i] + " ");
+		System.out.println();
+		//System.out.println(result.start + " " + result.end);
+		System.out.println(" Max sum is: " + result.max_sum);
+	}
+
+private static int findMaxSum(int[] array){
+	int max_sum;
+	int[] sum = new int[array.length];
+	
+	Node tmpNode = new Node();
+	int max_index = 0;
+	sum[0] = array[0];
+	max_sum = sum[0];
+	int start = 0;
+	int end = 0;
+	tmpNode.start = start;
+	tmpNode.end = end;
+	tmpNode.sum = sum[0];
+	list.add(tmpNode);
+	for (int i=1; i<array.length; i++){
+		if (sum[i-1]+array[i]>=array[i]) {
+			sum[i] = sum[i-1]+array[i];
+			end++;
+		}
+		else{
+			sum[i] = array[i];
+			start = i;
+			end = i;
+		}
+		if (sum[i] > max_sum)
+			max_index = i;
+		
+		max_sum = Math.max(max_sum, sum[i]);
+		tmpNode = new Node();
+		tmpNode.start = start;
+		tmpNode.end = end;
+		tmpNode.sum = sum[i];
+		list.add(tmpNode);
+		
+	}
+	
+	return max_index;
+}
+
+private static class Node{
+	int sum;
+	int start;
+	int end;
+	Node(){
+	}
+}
+private static ArrayList<Node> list = new ArrayList<Node>();
+private static int[] array = {-2, -3, 4, -1, -2, 1, 5, -3};
+private static int[] array1 = {-2, -3, -4, -1, -2, -1, -5, -3};
+private static int[] array2 = {2, 3, 4, 0, 2, 1, 5, 3};
+}
