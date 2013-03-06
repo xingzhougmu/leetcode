@@ -43,9 +43,11 @@ private static void updateHashtable(int current){
 		increment = 1 + (hash.containsKey(left) && left!=current ? hash.get(left) : 0);
 	else
 		increment = 1 + (hash.containsKey(left) && left!=current ? hash.get(left) : 0) + (hash.containsKey(right) && right!=current? hash.get(right) : 0);
+	
 	if (hash.containsKey(left)) hash.put(left, increment);  // update leftmost
 	if (hash.containsKey(right)) hash.put(right, increment); // update rightmost
 	hash.put(current, increment); // update current
+
 	max_length = Math.max(max_length, increment);
 
 }
