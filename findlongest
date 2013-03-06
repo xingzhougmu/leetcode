@@ -1,0 +1,55 @@
+import java.util.Hashtable;
+
+/*
+Given an unsorted array of integers, find the length of the longest consecutive elements sequence.
+ Eg, given [100, 2, 1, 3], The longest consecutive elements sequence is [1, 2, 3]. Return its length: 3. 
+Your algorithm should run in O(n).
+*/
+public class Findlongest{
+
+public static void main(String[] args){
+  int[] array = {100, 2, 1, 3, 10, 90, 4, 7, 9, 8, 5, 6, 99, 2, 4};
+	findlongest(array);
+	System.out.println("Maximun consecutive length is: " + max_length);
+
+}
+
+
+private static void findlongest(int[] array){
+
+	for (int i=0; i<array.length; i++){
+			updateHashtable(array[i]);
+	}
+
+}
+
+private static void updateHashtable(int current){
+	int left = current - 1;
+	int right = current + 1;
+	int increment = 0;
+	// find the leftmost number
+	while (hash.containsKey(left)){
+		left--;
+	}
+	left++; // increase one to where have value
+	
+	// find the rightmost number
+	while (hash.containsKey(right)){
+		right++;
+	}
+	right--; // decrease one to where have value
+	
+	if (hash.containsKey(current)) // take care of the situation that array contains duplicate items
+		increment = 1 + (hash.containsKey(left) && left!=current ? hash.get(left) : 0);
+	else
+		increment = 1 + (hash.containsKey(left) && left!=current ? hash.get(left) : 0) + (hash.containsKey(right) && right!=current? hash.get(right) : 0);
+	if (hash.containsKey(left)) hash.put(left, increment);  // update leftmost
+	if (hash.containsKey(right)) hash.put(right, increment); // update rightmost
+	hash.put(current, increment); // update current
+	max_length = Math.max(max_length, increment);
+
+}
+
+private static Hashtable<Integer, Integer> hash = new Hashtable<Integer, Integer>();
+private static int max_length = 0;
+}
