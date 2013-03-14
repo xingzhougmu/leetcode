@@ -52,6 +52,16 @@ public class Solution {
         }
         
     }
+
+
+     private static void min2(ArrayList<ArrayList<Integer>> triangle){
+        for (int i=triangle.size(); i>1; i--){
+            for (int j=0; j<triangle.get(i-2).size(); j++){
+                triangle.get(i-2).set(j, triangle.get(i-2).get(j)+Math.min(triangle.get(i-1).get(j), triangle.get(i-1).get(j+1)));
+            }
+        }
+        
+    }
     
     private static void min(ArrayList<ArrayList<Integer>> triangle, int sum, int d, int ind){
         
